@@ -31,13 +31,20 @@ public class ParallelParsingService {
             int threadNumber = Integer.parseInt(parallelParsingConfig.getThreadNumber());
             List<ParallelParsingTask> tasksToExecute = new ArrayList<>();
             List<CategoryToProductUrl> categoryToProductUrls = getProductToCategoryMappingFromContext(categoryContexts);
-            List<List<CategoryToProductUrl>> threadPartitions = Lists.partition(categoryToProductUrls, threadNumber);
+            List<List<CategoryToProductUrl>> threadPartitions = Lists.partition(categoryToProductUrls, categoryToProductUrls.size() / threadNumber);
             List<Product> result = new ArrayList<>();
 
-            for (List<CategoryToProductUrl> partition : threadPartitions) {
-                tasksToExecute.add(new ParallelParsingTask(webStoreProductParser, partition));
+            if (threadPartitions.size() > threadNumber) {
+                threadPartitions.get(threadPartitions.size() - 2)
+                        .addAll(threadPartitions.get(threadPartitions.size() - 1));
+                for (int i = 0; i < threadPartitions.size() - 1; i++) {
+                    tasksToExecute.add(new ParallelParsingTask(webStoreProductParser, threadPartitions.get(i)));
+                }
+            } else {
+                for (List<CategoryToProductUrl> partition : threadPartitions) {
+                    tasksToExecute.add(new ParallelParsingTask(webStoreProductParser, partition));
+                }
             }
-
             Instant start = Instant.now();
             ExecutorService executorService = Executors.newFixedThreadPool(threadNumber);
             List<Future<List<Product>>> futures = executorService.invokeAll(tasksToExecute);
