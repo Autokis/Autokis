@@ -4,7 +4,6 @@ package com.example.autokis.parallel.service;
 import com.example.autokis.parallel.ParallelParsingTask;
 import com.example.autokis.parallel.config.ParallelParsingConfig;
 import com.example.autokis.parser.WebStoreProductParser;
-import com.example.autokis.parser.model.Category;
 import com.example.autokis.parser.model.Product;
 import com.example.autokis.parser.provider.model.CategoryContext;
 import com.example.autokis.parser.provider.model.CategoryToProductUrl;
@@ -31,20 +30,13 @@ public class ParallelParsingService {
             int threadNumber = Integer.parseInt(parallelParsingConfig.getThreadNumber());
             List<ParallelParsingTask> tasksToExecute = new ArrayList<>();
             List<CategoryToProductUrl> categoryToProductUrls = getProductToCategoryMappingFromContext(categoryContexts);
-            List<List<CategoryToProductUrl>> threadPartitions = Lists.partition(categoryToProductUrls, categoryToProductUrls.size() / threadNumber);
+            List<List<CategoryToProductUrl>> threadPartitions = Lists.partition(categoryToProductUrls, (int) Math.ceil(categoryToProductUrls.size() / (double) threadNumber));
             List<Product> result = new ArrayList<>();
 
-            if (threadPartitions.size() > threadNumber) {
-                threadPartitions.get(threadPartitions.size() - 2)
-                        .addAll(threadPartitions.get(threadPartitions.size() - 1));
-                for (int i = 0; i < threadPartitions.size() - 1; i++) {
-                    tasksToExecute.add(new ParallelParsingTask(webStoreProductParser, threadPartitions.get(i)));
-                }
-            } else {
-                for (List<CategoryToProductUrl> partition : threadPartitions) {
-                    tasksToExecute.add(new ParallelParsingTask(webStoreProductParser, partition));
-                }
+            for (List<CategoryToProductUrl> partition : threadPartitions) {
+                tasksToExecute.add(new ParallelParsingTask(webStoreProductParser, partition));
             }
+
             Instant start = Instant.now();
             ExecutorService executorService = Executors.newFixedThreadPool(threadNumber);
             List<Future<List<Product>>> futures = executorService.invokeAll(tasksToExecute);
