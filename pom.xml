@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ua.com.autokis</groupId>
-	<artifactId>autokis</artifactId>
+	<artifactId>autokis-1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>autokis</name>
 	<description>autokis</description>
