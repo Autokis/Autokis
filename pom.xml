@@ -9,13 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ua.com.autokis</groupId>
-	<artifactId>autokis-1</artifactId>
+	<artifactId>autokis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>autokis</name>
 	<description>autokis</description>
 	<properties>
 		<java.version>17</java.version>
-		<sonar.organization>autokis</sonar.organization>
+		<sonar.organization>autokis-1</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
