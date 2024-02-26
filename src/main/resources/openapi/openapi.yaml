@@ -3,8 +3,6 @@ info:
   title: Autokis API
   description: An API for managing products for Autokis
   version: 1.0.0
-#servers:
-#  - url: /
 paths:
   /products:
     get:
