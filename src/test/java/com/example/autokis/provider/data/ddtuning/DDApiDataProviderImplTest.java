@@ -33,7 +33,7 @@ class DDApiDataProviderImplTest {
     }
 
     @Test
-    public void getAllProductsFromAPI() {
+    void getAllProductsFromAPI() {
         DDResponse response = prepareResponse();
 
         when(ddTuningFeignClient.getAllProducts(anyInt(), eq("test"))).thenReturn(response);
@@ -43,15 +43,7 @@ class DDApiDataProviderImplTest {
     }
 
     @Test
-    public void getAllProductsFromApiFeignClientReturnNull() {
-        when(ddTuningFeignClient.getAllProducts(anyInt(), eq("test"))).thenReturn(null);
-
-        List<Product> allProductsFromAPI = dataProvider.getAllProductsFromAPI();
-        assertEquals(0, allProductsFromAPI.size());
-    }
-
-    @Test
-    public void getAllProductsFromApiFeignClientThrowsException() {
+    void getAllProductsFromApiFeignClientThrowsException() {
         when(ddTuningFeignClient.getAllProducts(anyInt(), eq("test"))).thenThrow(FeignException.NotFound.class);
 
         List<Product> allProductsFromAPI = dataProvider.getAllProductsFromAPI();

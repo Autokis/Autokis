@@ -32,9 +32,6 @@ public class DDApiDataProviderImpl implements ApiDataProvider {
                 log.error("Error when parsing DDTuning Api with offset %d".formatted(i), e);
                 continue;
             }
-            if (response == null) {
-                continue;
-            }
             results.addAll(response.getData());
 
         }

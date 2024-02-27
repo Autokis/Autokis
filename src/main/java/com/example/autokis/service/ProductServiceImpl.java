@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductsApiDelegate {
     private final ApiDataProvider dataProvider;
+    @Override
     public ResponseEntity<List<Product>> getAllProducts() {
         //Later would use db call
         return ResponseEntity.ok().body(dataProvider.getAllProductsFromAPI());
