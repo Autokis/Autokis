@@ -26,6 +26,7 @@ class DDApiDataProviderImplTest {
     private DDTuningFeignClient ddTuningFeignClient;
     @Mock
     private ApiTokenConfiguration apiTokenConfiguration;
+    private static final int PRODUCTS_PER_REQUEST = 1000;
 
     @BeforeEach
     public void setUp() {
@@ -36,15 +37,17 @@ class DDApiDataProviderImplTest {
     void getAllProductsFromAPI() {
         DDResponse response = prepareResponse();
 
-        when(ddTuningFeignClient.getAllProducts(anyInt(), eq("test"))).thenReturn(response);
+        when(ddTuningFeignClient.getAllProducts(anyInt(), eq("test"), anyInt())).thenReturn(response);
 
         List<Product> allProductsFromAPI = dataProvider.getAllProductsFromAPI();
-        assertEquals(6, allProductsFromAPI.size());
+        assertEquals(response.getTotalResults() / PRODUCTS_PER_REQUEST, allProductsFromAPI.size());
     }
 
     @Test
     void getAllProductsFromApiFeignClientThrowsException() {
-        when(ddTuningFeignClient.getAllProducts(anyInt(), eq("test"))).thenThrow(FeignException.NotFound.class);
+        DDResponse response = prepareResponse();
+        when(ddTuningFeignClient.getAllProducts(eq(0), eq("test"), eq(1))).thenReturn(response);
+        when(ddTuningFeignClient.getAllProducts(anyInt(), eq("test"), eq(1000))).thenThrow(FeignException.NotFound.class);
 
         List<Product> allProductsFromAPI = dataProvider.getAllProductsFromAPI();
         assertEquals(0, allProductsFromAPI.size());
@@ -56,6 +59,7 @@ class DDApiDataProviderImplTest {
         product.setId(1);
         product.setCategory("test");
         product.setTitle("test");
+        response.setTotalResults(60000);
         response.data(List.of(product));
         return response;
     }

@@ -19,15 +19,19 @@ import java.util.List;
 public class DDApiDataProviderImpl implements ApiDataProvider {
     private final DDTuningFeignClient ddTuningFeignClient;
     private final ApiTokenConfiguration apiTokenConfiguration;
+    private final int PRODUCT_LIMIT_PER_REQUEST = 1000;
 
     public List<Product> getAllProductsFromAPI() {
         log.info("Attempting to acquire products from DDTuning");
         List<Product> results = new ArrayList<>();
+        String apiToken = apiTokenConfiguration.getDdTuningApiToken();
+        int totalProductQuantity = getTotalProductQuantity(apiToken);
 
-        for (int i = 0; i < 60000; i += 10000) {
+        for (int i = 0; i < totalProductQuantity; i += PRODUCT_LIMIT_PER_REQUEST) {
             DDResponse response;
             try {
-                response = ddTuningFeignClient.getAllProducts(i, apiTokenConfiguration.getDdTuningApiToken());
+                response = ddTuningFeignClient.getAllProducts(i, apiToken, PRODUCT_LIMIT_PER_REQUEST);
+                log.debug("Response with offset %d: \n" + response);
             } catch (FeignException e) {
                 log.error("Error when parsing DDTuning Api with offset %d".formatted(i), e);
                 continue;
@@ -37,5 +41,9 @@ public class DDApiDataProviderImpl implements ApiDataProvider {
         }
         log.info("Acquired total of %d products from DDTuning".formatted(results.size()));
         return results;
+    }
+
+    private int getTotalProductQuantity(String apiToken) {
+        return ddTuningFeignClient.getAllProducts(0, apiToken, 1).getTotalResults();
     }
 }

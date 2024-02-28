@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "ddtuning", url = "https://ddaudio.com.ua/api")
 @Headers("Authorization: {token}")
 public interface DDTuningFeignClient {
-    @GetMapping("/price/retail?offset={offset}&lang=ua")
-    DDResponse getAllProducts(@PathVariable int offset, @RequestHeader("Authorization") String token);
+    @GetMapping("/price/retail?offset={offset}&lang=ua&limit={limit}")
+    DDResponse getAllProducts(@PathVariable int offset, @RequestHeader("Authorization") String token, @PathVariable("limit") int limit);
 }
