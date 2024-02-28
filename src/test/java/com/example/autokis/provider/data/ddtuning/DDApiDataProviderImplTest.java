@@ -46,7 +46,7 @@ class DDApiDataProviderImplTest {
     @Test
     void getAllProductsFromApiFeignClientThrowsException() {
         DDResponse response = prepareResponse();
-        when(ddTuningFeignClient.getAllProducts(eq(0), eq("test"), eq(1))).thenReturn(response);
+        when(ddTuningFeignClient.getAllProducts(0, "test", 1)).thenReturn(response);
         when(ddTuningFeignClient.getAllProducts(anyInt(), eq("test"), eq(1000))).thenThrow(FeignException.NotFound.class);
 
         List<Product> allProductsFromAPI = dataProvider.getAllProductsFromAPI();
