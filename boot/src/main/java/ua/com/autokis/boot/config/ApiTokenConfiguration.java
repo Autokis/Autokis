@@ -1,4 +1,4 @@
-package com.example.autokis.config;
+package ua.com.autokis.boot.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

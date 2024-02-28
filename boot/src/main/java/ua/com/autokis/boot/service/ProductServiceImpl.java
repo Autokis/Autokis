@@ -1,11 +1,11 @@
-package com.example.autokis.service;
+package ua.com.autokis.boot.service;
 
-import com.example.autokis.openapi.api.ProductsApiDelegate;
-import com.example.autokis.openapi.model.Product;
-import com.example.autokis.provider.ApiDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ua.com.autokis.boot.provider.ApiDataProvider;
+import ua.com.autokis.openapi.api.ProductsApiDelegate;
+import ua.com.autokis.openapi.model.Product;
 
 import java.util.List;
 

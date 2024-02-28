@@ -1,15 +1,15 @@
-package com.example.autokis.provider.data.ddtuning;
+package ua.com.autokis.boot.provider.data.ddtuning;
 
-import com.example.autokis.client.feign.DDTuningFeignClient;
-import com.example.autokis.config.ApiTokenConfiguration;
-import com.example.autokis.openapi.model.DDResponse;
-import com.example.autokis.openapi.model.Product;
 import feign.FeignException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import ua.com.autokis.api.сlient.feign.DDTuningFeignClient;
+import ua.com.autokis.boot.config.ApiTokenConfiguration;
+import ua.com.autokis.openapi.model.DDResponse;
+import ua.com.autokis.openapi.model.Product;
 
 import java.util.List;
 

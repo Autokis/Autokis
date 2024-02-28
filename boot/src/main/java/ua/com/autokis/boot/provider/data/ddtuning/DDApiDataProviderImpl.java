@@ -1,14 +1,14 @@
-package com.example.autokis.provider.data.ddtuning;
+package ua.com.autokis.boot.provider.data.ddtuning;
 
-import com.example.autokis.client.feign.DDTuningFeignClient;
-import com.example.autokis.openapi.model.DDResponse;
-import com.example.autokis.openapi.model.Product;
-import com.example.autokis.provider.ApiDataProvider;
-import com.example.autokis.config.ApiTokenConfiguration;
+import ua.com.autokis.api.сlient.feign.DDTuningFeignClient;
+import ua.com.autokis.boot.config.ApiTokenConfiguration;
+import ua.com.autokis.boot.provider.ApiDataProvider;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import ua.com.autokis.openapi.model.DDResponse;
+import ua.com.autokis.openapi.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;

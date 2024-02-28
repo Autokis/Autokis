@@ -1,7 +1,6 @@
-package com.example.autokis.provider;
+package ua.com.autokis.boot.provider;
 
-import com.example.autokis.openapi.model.Product;
-
+import ua.com.autokis.openapi.model.Product;
 import java.util.List;
 
 public interface ApiDataProvider {

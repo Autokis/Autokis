@@ -1,9 +1,9 @@
-package com.example.autokis.client.feign;
+package ua.com.autokis.api.сlient.feign;
 
-import com.example.autokis.openapi.model.DDResponse;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
+import ua.com.autokis.openapi.model.DDResponse;
 
 @FeignClient(name = "ddtuning", url = "https://ddaudio.com.ua/api")
 @Headers("Authorization: {token}")
