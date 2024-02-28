@@ -1,4 +1,4 @@
-package com.example.autokis.controller.test;
+package ua.com.autokis.api.controllers;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,4 +14,5 @@ public class TestSwaggerController {
     public String testGetMethod() {
         return "Як умру то поховайте...";
     }
+
 }
