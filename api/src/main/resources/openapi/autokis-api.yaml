@@ -1,119 +1,85 @@
 openapi: 3.0.0
 info:
-  title: Bookstore API
-  description: An API for managing books in a bookstore
+  title: Autokis API
+  description: An API for managing products for Autokis
   version: 1.0.0
-servers:
-  - url: http://localhost:8000
 paths:
-  /books:
+  /products:
     get:
-      summary: Retrieve all books
-      description: Retrieve a list of all books in the bookstore
+      operationId: getAllProducts
+      summary: Retrieve list of Root objects
       responses:
         '200':
-          description: A list of books
+          description: Successful response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      description: The unique identifier for the book
-                    title:
-                      type: string
-                      description: The title of the book
-                    author:
-                      type: string
-                      description: The author of the book
-                    year:
-                      type: integer
-                      description: The publication year of the book
-    post:
-      summary: Add a new book
-      description: Add a new book to the bookstore
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  description: The title of the book
-                author:
-                  type: string
-                  description: The author of the book
-                year:
-                  type: integer
-                  description: The publication year of the book
-      responses:
-        '201':
-          description: The newly created book
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: The unique identifier for the book
-                  title:
-                    type: string
-                    description: The title of the book
-                  author:
-                    type: string
-                    description: The author of the book
-                  year:
-                    type: integer
-                    description: The publication year of the book
-  /books/{id}:
-    get:
-      summary: Retrieve a specific book
-      description: Retrieve details of a specific book by its ID
-      parameters:
-        - name: id
-          in: path
-          description: The ID of the book to retrieve
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Details of the requested book
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: The unique identifier for the book
-                  title:
-                    type: string
-                    description: The title of the book
-                  author:
-                    type: string
-                    description: The author of the book
-                  year:
-                    type: integer
-                    description: The publication year of the book
-    delete:
-      summary: Delete a book
-      description: Delete a book from the bookstore by its ID
-      operationId: deleteBookById  # Custom operationId
-      parameters:
-        - name: id
-          in: path
-          description: The ID of the book to delete
-          required: true
-          schema:
-            type: integer
-      responses:
+                  $ref: '#/components/schemas/Product'
         '204':
-          description: The book has been successfully deleted
-
+          description: No content
+components:
+  schemas:
+    DDResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        time:
+          type: number
+        total:
+          type: integer
+        totalResults:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        mark:
+          type: string
+        model:
+          type: string
+        title:
+          type: string
+        category:
+          type: string
+        subcategory:
+          type: string
+        manufacturer:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        sku:
+          type: string
+        price:
+          type: integer
+        currency:
+          type: string
+        quantity:
+          type: integer
+        warehouse:
+          type: string
+        short_title:
+          type: string
+        parent:
+          $ref: '#/components/schemas/Parent'
+      readOnly: true
+    Parent:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
