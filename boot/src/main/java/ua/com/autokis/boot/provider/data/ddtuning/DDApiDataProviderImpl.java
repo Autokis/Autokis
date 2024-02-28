@@ -1,6 +1,6 @@
 package ua.com.autokis.boot.provider.data.ddtuning;
 
-import ua.com.autokis.api.сlient.feign.DDTuningFeignClient;
+import ua.com.autokis.api.client.feign.DDTuningFeignClient;
 import ua.com.autokis.boot.config.ApiTokenConfiguration;
 import ua.com.autokis.boot.provider.ApiDataProvider;
 import feign.FeignException;

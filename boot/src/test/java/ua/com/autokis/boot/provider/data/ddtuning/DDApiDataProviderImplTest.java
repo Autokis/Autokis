@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import ua.com.autokis.api.сlient.feign.DDTuningFeignClient;
+import ua.com.autokis.api.client.feign.DDTuningFeignClient;
 import ua.com.autokis.boot.config.ApiTokenConfiguration;
 import ua.com.autokis.openapi.model.DDResponse;
 import ua.com.autokis.openapi.model.Product;

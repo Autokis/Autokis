@@ -1,4 +1,4 @@
-package ua.com.autokis.api.сlient.feign;
+package ua.com.autokis.api.client.feign;
 
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
