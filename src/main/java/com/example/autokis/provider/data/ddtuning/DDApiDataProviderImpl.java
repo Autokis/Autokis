@@ -19,7 +19,7 @@ import java.util.List;
 public class DDApiDataProviderImpl implements ApiDataProvider {
     private final DDTuningFeignClient ddTuningFeignClient;
     private final ApiTokenConfiguration apiTokenConfiguration;
-    private final static int PRODUCT_LIMIT_PER_REQUEST = 1000;
+    private static final int PRODUCT_LIMIT_PER_REQUEST = 1000;
 
     public List<Product> getAllProductsFromAPI() {
         log.info("Attempting to acquire products from DDTuning");
