@@ -9,5 +9,6 @@ import ua.com.autokis.openapi.model.DDResponse;
 @Headers("Authorization: {token}")
 public interface DDTuningFeignClient {
     @GetMapping("/price/retail?offset={offset}&lang=ua&limit={limit}")
-    DDResponse getAllProducts(@PathVariable int offset, @RequestHeader("Authorization") String token, @PathVariable("limit") int limit);
+    DDResponse getAllProducts(@PathVariable int offset, @RequestHeader("Authorization") String token,
+                              @PathVariable("limit") int limit);
 }

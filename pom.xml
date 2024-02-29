@@ -39,7 +39,7 @@
 
     <modules>
         <module>domain</module>
-        <module>boot</module>
+        <module>application</module>
         <module>api</module>
     </modules>
 
