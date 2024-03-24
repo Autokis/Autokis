@@ -8,7 +8,6 @@ import ua.com.autokis.domain.product.dd.DDProduct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class DDProductToEntityMapper implements ProductToEntityMapper {
@@ -21,9 +20,9 @@ public class DDProductToEntityMapper implements ProductToEntityMapper {
                 additionalImages = ddProduct.getImages().size() < 2
                         ? new ArrayList<>()
                         : ddProduct.getImages().subList(1, ddProduct.getImages().size());
-                image = ddProduct.getImages().size() > 0
+                image = !ddProduct.getImages().isEmpty()
                         ? ddProduct.getImages().get(0)
-                        : "";
+                        : null;
             }
             String productCategory = ddProduct.getSubcategory().isEmpty()
                     ? ddProduct.getCategory()
@@ -50,6 +49,6 @@ public class DDProductToEntityMapper implements ProductToEntityMapper {
 
     @Override
     public List<Optional<ProductEntity>> mapAllDtoToEntity(List<? extends Object> productDtos) {
-        return productDtos.stream().map(this::mapDtoToEntity).collect(Collectors.toList());
+        return productDtos.stream().map(this::mapDtoToEntity).toList();
     }
 }

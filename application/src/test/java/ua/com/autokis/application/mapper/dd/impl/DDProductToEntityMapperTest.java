@@ -8,8 +8,7 @@ import ua.com.autokis.domain.product.dd.DDProduct;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DDProductToEntityMapperTest {
     private DDProductToEntityMapper mapper;
@@ -27,6 +26,27 @@ class DDProductToEntityMapperTest {
 
         assertTrue(productEntity.isPresent());
         compareEntityToDDProduct(ddProduct, productEntity.get());
+    }
+
+    @Test
+    void testImagesAreNull() {
+        DDProduct ddProduct = prepareDDProduct();
+        ddProduct.setImages(null);
+
+        Optional<ProductEntity> productEntity = mapper.mapDtoToEntity(ddProduct);
+
+        assertTrue(productEntity.isPresent());
+        assertNull(productEntity.get().getImage());
+        assertTrue(productEntity.get().getAdditionalImages().isEmpty());
+    }
+
+    @Test
+    void testPuttingRandomObjectInMethod() {
+        ProductEntity product = new ProductEntity();
+
+        Optional<ProductEntity> productEntity = mapper.mapDtoToEntity(product);
+
+        assertTrue(productEntity.isEmpty());
     }
 
     @Test

@@ -14,7 +14,6 @@ import ua.com.autokis.openapi.model.ProductDTO;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class ProductServiceImpl implements ProductsApiDelegate {
 
         return ResponseEntity.ok().body(productEntities.stream()
                 .map(p -> modelMapper.map(p, ProductDTO.class))
-                .collect(Collectors.toList()));
+                .toList());
     }
 
     @Override
