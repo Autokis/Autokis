@@ -4,6 +4,50 @@ info:
   description: An API for managing products for Autokis
   version: 1.0.0
 paths:
+  /banner:
+    get:
+      summary: Get all banners
+      operationId: getAllBanners
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BannerDTO'
+    post:
+      summary: Create new banner
+      operationId: createNewBanner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BannerRequestDTO'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BannerDTO'
+  /banner/{bannerId}:
+    delete:
+      summary: Delete a banner by ID
+      operationId: deleteBannerById
+      parameters:
+        - in: path
+          name: bannerId
+          required: true
+          description: ID of the banner to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No content
+
   /products:
     post:
       summary: Create a new product
@@ -82,8 +126,6 @@ paths:
       responses:
         '204':
           description: No content
-        '404':
-          description: Product not found
   /products/import:
     get:
       summary: Import all products into db
@@ -92,6 +134,24 @@ paths:
           description: No content
 components:
   schemas:
+    BannerRequestDTO:
+      type: object
+      properties:
+        photoUrl:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        redirectUrl:
+          type: string
+    BannerDTO:
+      allOf:
+        - $ref: '#/components/schemas/BannerRequestDTO'
+        - type: object
+          properties:
+            id:
+              type: integer
     ProductDTO:
       type: object
       properties:

@@ -1,4 +1,4 @@
-package ua.com.autokis.application.entity;
+package ua.com.autokis.application.entity.product;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
