@@ -1,14 +1,14 @@
 package ua.com.autokis.application.provider.data.ddtuning;
 
-import ua.com.autokis.api.client.feign.DDTuningFeignClient;
-import ua.com.autokis.application.config.ApiTokenConfiguration;
-import ua.com.autokis.application.provider.ApiDataProvider;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ua.com.autokis.openapi.model.DDResponse;
-import ua.com.autokis.openapi.model.Product;
+import ua.com.autokis.api.client.feign.DDTuningFeignClient;
+import ua.com.autokis.application.config.ApiTokenConfiguration;
+import ua.com.autokis.application.provider.ApiDataProvider;
+import ua.com.autokis.domain.product.dd.DDProduct;
+import ua.com.autokis.domain.response.DDResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,9 @@ public class DDApiDataProviderImpl implements ApiDataProvider {
     private final ApiTokenConfiguration apiTokenConfiguration;
     private static final int PRODUCT_LIMIT_PER_REQUEST = 1000;
 
-    public List<Product> getAllProductsFromAPI() {
+    public List<DDProduct> getAllProductsFromAPI() {
         log.info("Attempting to acquire products from DDTuning");
-        List<Product> results = new ArrayList<>();
+        List<DDProduct> results = new ArrayList<>();
         String apiToken = apiTokenConfiguration.getDdTuningApiToken();
         int totalProductQuantity = getTotalProductQuantity(apiToken);
 
