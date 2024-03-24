@@ -90,6 +90,28 @@ paths:
       responses:
         '204':
           description: No content
+  /products/new/{quantity}:
+    get:
+      summary: get n new Products
+      operationId: getNNewProducts
+      parameters:
+        - in: path
+          name: quantity
+          required: true
+          description: number of the product to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDTO'
+        '404':
+          description: Product not found
 components:
   schemas:
     ProductDTO:

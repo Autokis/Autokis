@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import ua.com.autokis.application.mapper.dd.impl.ProductStatus;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -48,8 +51,10 @@ public class ProductEntity {
     private String sortOrder;
     private String status;
     private String viewed;
-    private String dateAdded;
-    private String dateModified;
+    @CreationTimestamp
+    private Instant dateAdded;
+    @UpdateTimestamp
+    private Instant dateModified;
     private String importBatch;
     private String noindex;
     private String manufacturer;
