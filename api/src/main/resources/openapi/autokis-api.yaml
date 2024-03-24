@@ -1,0 +1,229 @@
+openapi: 3.0.0
+info:
+  title: Autokis API
+  description: An API for managing products for Autokis
+  version: 1.0.0
+paths:
+  /products:
+    post:
+      summary: Create a new product
+      operationId: createNewProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+    get:
+      summary: Get all products
+      operationId: getAllProducts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDTO'
+    patch:
+      summary: Edit product
+      operationId: editProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+  /products/{productId}:
+    get:
+      summary: Get a product by ID
+      operationId: getProductById
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          description: ID of the product to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+        '404':
+          description: Product not found
+    delete:
+      summary: Delete a product by ID
+      operationId: deleteProductById
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          description: ID of the product to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No content
+        '404':
+          description: Product not found
+  /products/import:
+    get:
+      summary: Import all products into db
+      responses:
+        '204':
+          description: No content
+components:
+  schemas:
+    ProductDTO:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int32
+        model:
+          type: string
+        sku:
+          type: string
+        upc:
+          type: string
+        ean:
+          type: string
+        jan:
+          type: string
+        isbn:
+          type: string
+        mpn:
+          type: string
+        location:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+        stockStatusId:
+          type: string
+        image:
+          type: string
+        manufacturerId:
+          type: string
+        shipping:
+          type: string
+        optionsBuy:
+          type: string
+        price:
+          type: number
+          format: double
+        points:
+          type: string
+        taxClassId:
+          type: string
+        dateAvailable:
+          type: string
+          format: date
+        weight:
+          type: string
+        weightClassId:
+          type: string
+        length:
+          type: string
+        width:
+          type: string
+        height:
+          type: string
+        lengthClassId:
+          type: string
+        subtract:
+          type: string
+        minimum:
+          type: string
+        sortOrder:
+          type: string
+        status:
+          type: string
+        viewed:
+          type: string
+        dateAdded:
+          type: string
+          format: date-time
+        dateModified:
+          type: string
+          format: date-time
+        importBatch:
+          type: string
+        noindex:
+          type: string
+        manufacturer:
+          type: string
+        languageId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        shortDescription:
+          type: string
+        tag:
+          type: string
+        metaTitle:
+          type: string
+        metaH1:
+          type: string
+        metaDescription:
+          type: string
+        metaKeyword:
+          type: string
+        priceSpecial:
+          type: string
+        stockStatus:
+          type: string
+        link:
+          type: string
+        store:
+          type: string
+        rewardGroupOne:
+          type: string
+        additionalImages:
+          type: array
+          items:
+            type: string
+        productFilter:
+          type: string
+        productAttribute:
+          type: string
+        productCategory:
+          type: string
+        productDiscount:
+          type: string
+        productSpecial:
+          type: string
+        specialPriceForGroupOne:
+          type: string
+        specialPriceForGroupOneStart:
+          type: string
+          format: date-time
+        specialPriceForGroupOneEnd:
+          type: string
+          format: date-time
+        relatedProductId:
+          type: string
+        relatedProductName:
+          type: string
+        productOption:
+          type: string
