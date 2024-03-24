@@ -2,7 +2,7 @@ package ua.com.autokis.application.mapper.dd.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ua.com.autokis.application.entity.ProductEntity;
+import ua.com.autokis.application.entity.product.ProductEntity;
 import ua.com.autokis.domain.product.dd.DDProduct;
 
 import java.util.List;

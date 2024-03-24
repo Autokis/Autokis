@@ -1,6 +1,6 @@
 package ua.com.autokis.application.mapper.dd;
 
-import ua.com.autokis.application.entity.ProductEntity;
+import ua.com.autokis.application.entity.product.ProductEntity;
 
 import java.util.List;
 import java.util.Optional;

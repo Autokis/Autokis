@@ -1,14 +1,14 @@
-package ua.com.autokis.application.service;
+package ua.com.autokis.application.service.product;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import ua.com.autokis.application.entity.ProductEntity;
+import ua.com.autokis.application.entity.product.ProductEntity;
 import ua.com.autokis.application.mapper.dd.ProductToEntityMapper;
 import ua.com.autokis.application.provider.ApiDataProvider;
-import ua.com.autokis.application.repository.ProductRepository;
+import ua.com.autokis.application.repository.product.ProductRepository;
 import ua.com.autokis.openapi.api.ProductsApiDelegate;
 import ua.com.autokis.openapi.model.ProductDTO;
 

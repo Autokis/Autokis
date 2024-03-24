@@ -1,7 +1,7 @@
 package ua.com.autokis.application.mapper.dd.impl;
 
 import org.springframework.stereotype.Component;
-import ua.com.autokis.application.entity.ProductEntity;
+import ua.com.autokis.application.entity.product.ProductEntity;
 import ua.com.autokis.application.mapper.dd.ProductToEntityMapper;
 import ua.com.autokis.domain.product.dd.DDProduct;
 
