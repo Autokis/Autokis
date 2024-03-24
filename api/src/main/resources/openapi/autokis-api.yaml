@@ -4,6 +4,43 @@ info:
   description: An API for managing products for Autokis
   version: 1.0.0
 paths:
+  /review:
+    post:
+      summary: Create a new review
+      operationId: createNewReview
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewRequestDto'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewDTO'
+  /review/{quantity}:
+    get:
+      summary: Get N number of reviews
+      operationId: getNReviews
+      parameters:
+        - in: path
+          name: quantity
+          required: true
+          description: number of the reviews to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReviewDTO'
   /products:
     post:
       summary: Create a new product
@@ -92,6 +129,25 @@ paths:
           description: No content
 components:
   schemas:
+    ReviewDTO:
+      allOf:
+        - $ref: '#/components/schemas/ReviewRequestDto'
+        - type: object
+          properties:
+            creationDate:
+              type: string
+    ReviewRequestDto:
+      type: object
+      properties:
+        productId:
+          type: integer
+        userId:
+          type: integer
+        review:
+          type: integer
+        comment:
+          type: string
+
     ProductDTO:
       type: object
       properties:
