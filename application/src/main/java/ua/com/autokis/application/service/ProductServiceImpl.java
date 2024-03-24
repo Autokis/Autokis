@@ -2,6 +2,9 @@ package ua.com.autokis.application.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,14 @@ public class ProductServiceImpl implements ProductsApiDelegate {
         return ResponseEntity.ok().body(productEntities.stream()
                 .map(p -> modelMapper.map(p, ProductDTO.class))
                 .toList());
+    }
+
+    @Override
+    public ResponseEntity<List<ProductDTO>> getNNewProducts(Integer quantity) {
+        Sort sort = Sort.by("dateAdded").descending();
+        Page<ProductEntity> productEntities = productRepository.findAll(PageRequest.of(0, quantity, sort));
+        List<ProductDTO> productDTOS = productEntities.get().map(e -> modelMapper.map(e, ProductDTO.class)).toList();
+        return ResponseEntity.ok(productDTOS);
     }
 
     @Override
