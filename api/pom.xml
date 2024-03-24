@@ -77,6 +77,10 @@
             <type>pom</type>
             <scope>import</scope>
         </dependency>
+        <dependency>
+            <groupId>ua.com.autokis</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

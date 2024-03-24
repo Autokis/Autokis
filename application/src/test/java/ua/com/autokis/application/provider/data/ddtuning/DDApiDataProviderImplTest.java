@@ -3,13 +3,15 @@ package ua.com.autokis.application.provider.data.ddtuning;
 import feign.FeignException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 import ua.com.autokis.api.client.feign.DDTuningFeignClient;
 import ua.com.autokis.application.config.ApiTokenConfiguration;
-import ua.com.autokis.openapi.model.DDResponse;
-import ua.com.autokis.openapi.model.Product;
+import ua.com.autokis.domain.product.dd.DDProduct;
+import ua.com.autokis.domain.response.DDResponse;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class DDApiDataProviderImplTest {
     @InjectMocks
     private DDApiDataProviderImpl dataProvider;
@@ -39,7 +41,7 @@ class DDApiDataProviderImplTest {
 
         when(ddTuningFeignClient.getAllProducts(anyInt(), eq("test"), anyInt())).thenReturn(response);
 
-        List<Product> allProductsFromAPI = dataProvider.getAllProductsFromAPI();
+        List<DDProduct> allProductsFromAPI = dataProvider.getAllProductsFromAPI();
         assertEquals(response.getTotalResults() / PRODUCTS_PER_REQUEST, allProductsFromAPI.size());
     }
 
@@ -50,20 +52,20 @@ class DDApiDataProviderImplTest {
         when(ddTuningFeignClient.getAllProducts(anyInt(), eq("test"), eq(PRODUCTS_PER_REQUEST)))
                 .thenThrow(FeignException.NotFound.class);
 
-        List<Product> allProductsFromAPI = dataProvider.getAllProductsFromAPI();
+        List<DDProduct> allProductsFromAPI = dataProvider.getAllProductsFromAPI();
         assertEquals(0, allProductsFromAPI.size());
     }
 
     private DDResponse prepareResponse() {
         int totalResults = 60_000;
         DDResponse response = new DDResponse();
-        Product product = new Product();
+        DDProduct product = new DDProduct();
 
         product.setId(1);
         product.setCategory("test");
         product.setTitle("test");
         response.setTotalResults(totalResults);
-        response.data(List.of(product));
+        response.setData(List.of(product));
         return response;
     }
 }

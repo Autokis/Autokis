@@ -5,81 +5,225 @@ info:
   version: 1.0.0
 paths:
   /products:
+    post:
+      summary: Create a new product
+      operationId: createNewProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
     get:
+      summary: Get all products
       operationId: getAllProducts
-      summary: Retrieve list of Root objects
       responses:
         '200':
-          description: Successful response
+          description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Product'
+                  $ref: '#/components/schemas/ProductDTO'
+    patch:
+      summary: Edit product
+      operationId: editProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductDTO'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+  /products/{productId}:
+    get:
+      summary: Get a product by ID
+      operationId: getProductById
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          description: ID of the product to retrieve
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+        '404':
+          description: Product not found
+    delete:
+      summary: Delete a product by ID
+      operationId: deleteProductById
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          description: ID of the product to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No content
+        '404':
+          description: Product not found
+  /products/import:
+    get:
+      summary: Import all products into db
+      responses:
         '204':
           description: No content
 components:
   schemas:
-    DDResponse:
+    ProductDTO:
       type: object
       properties:
-        status:
-          type: string
-        time:
-          type: number
-        total:
+        productId:
           type: integer
-        totalResults:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Product'
-    Product:
-      type: object
-      properties:
-        id:
-          type: integer
-        mark:
-          type: string
+          format: int32
         model:
           type: string
-        title:
-          type: string
-        category:
-          type: string
-        subcategory:
-          type: string
-        manufacturer:
-          type: string
-        images:
-          type: array
-          items:
-            type: string
         sku:
           type: string
-        price:
-          type: integer
-        currency:
+        upc:
+          type: string
+        ean:
+          type: string
+        jan:
+          type: string
+        isbn:
+          type: string
+        mpn:
+          type: string
+        location:
           type: string
         quantity:
           type: integer
-        warehouse:
+          format: int32
+        stockStatusId:
           type: string
-        short_title:
+        image:
           type: string
-        parent:
-          $ref: '#/components/schemas/Parent'
-      readOnly: true
-    Parent:
-      type: object
-      properties:
-        id:
-          type: integer
-        title:
+        manufacturerId:
+          type: string
+        shipping:
+          type: string
+        optionsBuy:
+          type: string
+        price:
+          type: number
+          format: double
+        points:
+          type: string
+        taxClassId:
+          type: string
+        dateAvailable:
+          type: string
+          format: date
+        weight:
+          type: string
+        weightClassId:
+          type: string
+        length:
+          type: string
+        width:
+          type: string
+        height:
+          type: string
+        lengthClassId:
+          type: string
+        subtract:
+          type: string
+        minimum:
+          type: string
+        sortOrder:
+          type: string
+        status:
+          type: string
+        viewed:
+          type: string
+        dateAdded:
+          type: string
+          format: date-time
+        dateModified:
+          type: string
+          format: date-time
+        importBatch:
+          type: string
+        noindex:
+          type: string
+        manufacturer:
+          type: string
+        languageId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        shortDescription:
+          type: string
+        tag:
+          type: string
+        metaTitle:
+          type: string
+        metaH1:
+          type: string
+        metaDescription:
+          type: string
+        metaKeyword:
+          type: string
+        priceSpecial:
+          type: string
+        stockStatus:
+          type: string
+        link:
+          type: string
+        store:
+          type: string
+        rewardGroupOne:
+          type: string
+        additionalImages:
+          type: array
+          items:
+            type: string
+        productFilter:
+          type: string
+        productAttribute:
+          type: string
+        productCategory:
+          type: string
+        productDiscount:
+          type: string
+        productSpecial:
+          type: string
+        specialPriceForGroupOne:
+          type: string
+        specialPriceForGroupOneStart:
+          type: string
+          format: date-time
+        specialPriceForGroupOneEnd:
+          type: string
+          format: date-time
+        relatedProductId:
+          type: string
+        relatedProductName:
+          type: string
+        productOption:
           type: string
