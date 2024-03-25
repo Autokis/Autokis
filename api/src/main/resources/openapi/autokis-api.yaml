@@ -41,6 +41,26 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ReviewDTO'
+  /review/product/{productId}:
+    get:
+      summary: Get reviews by productId
+      operationId: getReviewsByProductId
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          description: id of the product
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReviewDTO'
   /products:
     post:
       summary: Create a new product
